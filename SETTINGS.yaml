@@ -8,12 +8,12 @@ PROXY: http://127.0.0.1:7890
 # Use Agently v4 `${ENV.xxx}` placeholders and let Agently resolve them from
 # the current environment or `.env` file when applying model settings.
 MODEL:
-  provider: OpenAICompatible
-  base_url: ${ENV.DEEPSEEK_BASE_URL}
-  model: ${ENV.DEEPSEEK_DEFAULT_MODEL}
+  provider: YandexGPT
+ https://llm.api.cloud.yandex.net/foundationModels/v1/completion
+ model: yandexgpt/latest
   model_type: chat
   auth:
-    api_key: ${ENV.DEEPSEEK_API_KEY}
+    api_key: ${ENV.YANDEX_API_KEY}
   request_options:
     temperature: 0.2
 
