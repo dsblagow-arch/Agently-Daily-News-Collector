@@ -1,0 +1,37 @@
+name: Daily News Agent (YandexGPT)
+
+on:
+  schedule:
+    # каждые 30 минут
+    - cron: "*/30 * * * *"
+  # можно запускать вручную для теста
+  workflow_dispatch:
+
+jobs:
+  run-agent:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Создаём .env на лету из секретов (ключи не попадают в логи)
+      - name: Create .env
+        run: |
+          echo "YANDEX_API_KEY=${{ secrets.YANDEX_API_KEY }}" > .env
+          echo "YANDEX_FOLDER_ID=${{ secrets.YANDEX_FOLDER_ID }}" >> .env
+
+      - name: Run agent with time check
+        run: python app.py
+        env:
+          # передаём переменные окружения, если агент их читает отдельно
+          YANDEX_API_KEY: ${{ secrets.YANDEX_API_KEY }}
+          YANDEX_FOLDER_ID: ${{ secrets.YANDEX_FOLDER_ID }}
