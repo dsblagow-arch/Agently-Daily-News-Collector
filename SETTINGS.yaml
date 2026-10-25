@@ -33,7 +33,7 @@ BROWSE:
 WORKFLOW:
   max_column_num: 3
   max_news_per_column: 3
-  output_language: Chinese
+  output_language: ru
   column_concurrency: 3
   summary_concurrency: 3
 
